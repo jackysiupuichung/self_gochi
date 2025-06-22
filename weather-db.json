@@ -1,0 +1,44 @@
+{
+  "weather": {
+    "properties": {
+      "periods": [
+        {
+          "number": 1,
+          "name": "Today",
+          "temperature": 93,
+          "temperatureUnit": "F",
+          "probabilityOfPrecipitation": {
+            "value": 42
+          },
+          "windSpeed": "10 to 16 mph",
+          "windDirection": "W",
+          "shortForecast": "Scattered Showers And Thunderstorms then Partly Sunny"
+        },
+        {
+          "number": 2,
+          "name": "Tonight",
+          "temperature": 72,
+          "temperatureUnit": "F",
+          "probabilityOfPrecipitation": {
+            "value": 7
+          },
+          "windSpeed": "3 to 13 mph",
+          "windDirection": "NW",
+          "shortForecast": "Partly Cloudy"
+        },
+        {
+          "number": 3,
+          "name": "Monday",
+          "temperature": 92,
+          "temperatureUnit": "F",
+          "probabilityOfPrecipitation": {
+            "value": 4
+          },
+          "windSpeed": "3 to 7 mph",
+          "windDirection": "E",
+          "shortForecast": "Mostly Sunny"
+        }
+      ]
+    }
+  }
+}

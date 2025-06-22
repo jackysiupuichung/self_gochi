@@ -27,7 +27,7 @@ export default function Register() {
                   .then((newUser) => {
                     localStorage.setItem(
                         "user",
-                        JSON.stringify({ name: newUser.username }),
+                        JSON.stringify({ id: newUser.id, name: newUser.username }),
                     );
                     navigate("/dashboard");
                   })

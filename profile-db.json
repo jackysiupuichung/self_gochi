@@ -1,0 +1,22 @@
+{
+  "profiles": [
+    {
+      "id": "f30c1b12-9a2d-4e23-b3dc-3f414fe934d5",
+      "userId": "1",
+      "sleepPattern": "night owl",
+      "dietPreference": "vegan",
+      "activityLevel": "active",
+      "socialStyle": "extrovert",
+      "workloadFeeling": "overwhelmed"
+    },
+    {
+      "id": "a723c9e1-38c2-4990-a6ea-88f939c8e5c2",
+      "userId": "2",
+      "sleepPattern": "early bird",
+      "dietPreference": "balanced",
+      "activityLevel": "moderate",
+      "socialStyle": "introvert",
+      "workloadFeeling": "balanced"
+    }
+  ]
+}

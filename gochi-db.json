@@ -1,0 +1,15 @@
+{
+  "agents": [
+    {
+      "id": 1,
+      "userId": 1,
+      "characterName": "Alex the Zen Coach",
+      "personality": "I speak in calm haiku and gentle reminders",
+      "region": "South",
+      "sleepQuality": 0.9,
+      "dietScore": 0.34,
+      "activityScore": 0.71,
+      "calendarBalance": 0.36
+    }
+  ]
+}

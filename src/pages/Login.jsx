@@ -22,7 +22,7 @@ export default function Login() {
             .then((res) => res.json())
             .then((data) => {
                 if (data.length > 0) {
-                    localStorage.setItem("user", JSON.stringify({ name: data[0].username }));
+                    localStorage.setItem("user", JSON.stringify({ id: data[0].id, name: data[0].username }));
                     navigate("/dashboard");
                 } else {
                     setError("Invalid username or password.");

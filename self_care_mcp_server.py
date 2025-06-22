@@ -8,6 +8,10 @@ from starlette.requests import Request
 from starlette.responses import HTMLResponse
 from starlette.routing import Route, Mount
 from mcp.server.sse import SseServerTransport
+from starlette.responses import JSONResponse
+
+
+
 
 mcp = FastMCP("holistic-wellness")
 
@@ -128,8 +132,24 @@ async def chat_agents(params: Dict[str, Any]) -> Dict[str, Any]:
     result['peerResponses'] = peer_responses
     return result
 
+async def meal_plan_endpoint(request: Request):
+    params = await request.json()
+    result = await suggest_meal_plan(params)
+    return JSONResponse(result)
+
+async def breathing_session_endpoint(request: Request):
+    params = await request.json()
+    result = await start_breathing_session(params)
+    return JSONResponse(result)
+
+async def list_tools_endpoint(request: Request):
+    tools = await list_tools()
+    return JSONResponse(tools)
+
+
 async def homepage(request: Request) -> HTMLResponse:
     return HTMLResponse("<h1>Holistic-Wellness MCP Server</h1>")
+
 
 def create_app() -> Starlette:
     sse = SseServerTransport("/messages/")
@@ -141,6 +161,7 @@ def create_app() -> Starlette:
     return Starlette(debug=True, routes=[
         Route("/", endpoint=homepage),
         Route("/sse", endpoint=sse_endpoint),
+        Route("/api/meal_plan", endpoint=meal_plan_endpoint, methods=["POST"]),
         Mount("/messages/", app=sse.handle_post_message),
     ])
 

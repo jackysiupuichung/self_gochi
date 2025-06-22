@@ -1,0 +1,35 @@
+[
+  {
+    "characterName": "Alex the Zen Coach",
+    "id": "523f63f4-2ac6-4b08-9469-574dadf872b5",
+    "timestamp": "2025-06-21T14:13:46.977050Z",
+    "sleepQuality": 0.9,
+    "dietScore": 0.34,
+    "activityScore": 0.71,
+    "calendarBalance": 0.36,
+    "personality": "I speak in calm haiku and gentle reminders",
+    "region": "South"
+  },
+  {
+    "characterName": "Alex the Zen Coach",
+    "id": "72ceec27-77e6-4432-afbd-e6ba5e54b28c",
+    "timestamp": "2025-06-21T15:13:46.977050Z",
+    "sleepQuality": 0.97,
+    "dietScore": 0.21,
+    "activityScore": 0.82,
+    "calendarBalance": 0.02,
+    "personality": "I speak in calm haiku and gentle reminders",
+    "region": "East"
+  },
+  {
+    "characterName": "Alex the Zen Coach",
+    "id": "91f857da-a9c1-41f2-b755-439a61792ae5",
+    "timestamp": "2025-06-21T16:13:46.977050Z",
+    "sleepQuality": 0.48,
+    "dietScore": 0.4,
+    "activityScore": 0.47,
+    "calendarBalance": 0.91,
+    "personality": "I speak in calm haiku and gentle reminders",
+    "region": "South"
+  }
+]

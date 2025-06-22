@@ -1,4 +1,5 @@
 from typing import Any
+import json
 import httpx
 from mcp.server.fastmcp import FastMCP
 
@@ -23,20 +24,9 @@ async def make_nws_request(url: str) -> dict[str, Any] | None:
         except Exception:
             return None
 
-def format_alert(feature: dict) -> str:
-    """Format an alert feature into a readable string."""
-    props = feature["properties"]
-    return f"""
-Event: {props.get('event', 'Unknown')}
-Area: {props.get('areaDesc', 'Unknown')}
-Severity: {props.get('severity', 'Unknown')}
-Description: {props.get('description', 'No description available')}
-Instructions: {props.get('instruction', 'No specific instructions provided')}
-"""
-
 @mcp.tool()
 async def get_alerts(state: str) -> str:
-    """Get weather alerts for a US state.
+    """Get weather alerts for a US state (returns raw JSON string).
 
     Args:
         state: Two-letter US state code (e.g. CA, NY)
@@ -44,18 +34,14 @@ async def get_alerts(state: str) -> str:
     url = f"{NWS_API_BASE}/alerts/active/area/{state}"
     data = await make_nws_request(url)
 
-    if not data or "features" not in data:
-        return "Unable to fetch alerts or no alerts found."
+    if not data:
+        return json.dumps({"error": "Unable to fetch alerts or no alerts found."}, indent=2)
 
-    if not data["features"]:
-        return "No active alerts for this state."
-
-    alerts = [format_alert(feature) for feature in data["features"]]
-    return "\n---\n".join(alerts)
+    return json.dumps(data, indent=2)
 
 @mcp.tool()
 async def get_forecast(latitude: float, longitude: float) -> str:
-    """Get weather forecast for a location.
+    """Get weather forecast for a location (returns raw JSON string).
 
     Args:
         latitude: Latitude of the location
@@ -65,30 +51,22 @@ async def get_forecast(latitude: float, longitude: float) -> str:
     points_url = f"{NWS_API_BASE}/points/{latitude},{longitude}"
     points_data = await make_nws_request(points_url)
 
-    if not points_data:
-        return "Unable to fetch forecast data for this location."
+    if not points_data or "properties" not in points_data:
+        return json.dumps({"error": "Unable to fetch forecast grid info."}, indent=2)
 
     # Get the forecast URL from the points response
-    forecast_url = points_data["properties"]["forecast"]
+    forecast_url = points_data["properties"].get("forecast")
+    if not forecast_url:
+        return json.dumps({"error": "Forecast URL not found in grid response."}, indent=2)
+
     forecast_data = await make_nws_request(forecast_url)
 
     if not forecast_data:
-        return "Unable to fetch detailed forecast."
+        return json.dumps({"error": "Unable to fetch detailed forecast."}, indent=2)
 
-    # Format the periods into a readable forecast
-    periods = forecast_data["properties"]["periods"]
-    forecasts = []
-    for period in periods[:5]:  # Only show next 5 periods
-        forecast = f"""
-{period['name']}:
-Temperature: {period['temperature']}°{period['temperatureUnit']}
-Wind: {period['windSpeed']} {period['windDirection']}
-Forecast: {period['detailedForecast']}
-"""
-        forecasts.append(forecast)
-
-    return "\n---\n".join(forecasts)
+    return json.dumps(forecast_data, indent=2)
 
 if __name__ == "__main__":
-    # Initialize and run the server
+    # Initialize and run the MCP server via stdio
     mcp.run(transport='stdio')
+
